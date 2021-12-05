@@ -1,0 +1,13 @@
+var app = require('../app');
+var http = require('http');
+
+var port = process.env.PORT || 9000;
+
+app.set('port', port);
+var server = http.createServer(app);
+
+server.listen(port);
+server.on('listening', ()=>{
+    const address = server.address();
+    console.log('server started on', address.port);
+});
