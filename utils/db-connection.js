@@ -22,6 +22,18 @@ class dbConnectSingleton {
             console.log("Database Connected!");
           });
     }
+
+    customQueryHandler(sqlQuery){
+      return new Promise((resolve, reject)=>{
+        this.instance.query(sqlQuery, (err, result)=> {
+          if(err){
+            reject(err)
+          } else {
+            resolve(result);
+          }
+        });
+      });
+    }
 }
 
 dbConnect = new dbConnectSingleton();

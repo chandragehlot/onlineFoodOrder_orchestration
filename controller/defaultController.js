@@ -4,14 +4,10 @@ const {
   } = require("../utils/apiResponse");
 
 function baseFunc(req,res) {
-  console.log('2', dbConnect.instance.query);
-  
-  dbConnect.instance.query('SELECT * FROM USER', (err, result) => {
-      if (!err){
-        console.log(err);
-      } else {
-        SuccessResponse(res, result);
-      }
+  dbConnect.customQueryHandler('SELECT * FROM USER').then((dbres)=>{
+      SuccessResponse(res, dbres);
+    }).catch((err)=>{
+      console.log(err);
     });
 }
 
