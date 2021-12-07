@@ -21,7 +21,8 @@ CREATE TABLE MENUITEM (
     id int not null AUTO_INCREMENT,
     name VARCHAR(256),
     type ENUM ('veg', 'nonveg'), 
-    cuisine ENUM ('south', 'panjabi', 'gujrati'),
+    main_category varchar(256),
+    sub_category varchar(256),
     price int,
     course_type ENUM ('starter','main', 'deserts'),
     PRIMARY KEY (id)
@@ -59,9 +60,19 @@ CREATE TABLE ORDERITEM (
 INSERT INTO USER ( user_name, phone_no) VALUES ('prasad', '9876548798');
 INSERT INTO USER ( user_name, phone_no ) VALUES ('ramesh', '9876548000');
 
-
-INSERT INTO MENUITEM ( name, type, cuisine, price, course_type ) VALUES ('masala dosa','veg', 'south', 200, 'starter');
-INSERT INTO MENUITEM ( name, type, cuisine, price, course_type ) VALUES ('chicken tikka','nonveg', 'south', 400 , 'starter');
+INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type ) VALUES ('masala dosa','veg', 'south', 'dosa', 200, 'starter');
+INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type ) VALUES ('rava dosa','veg', 'south', 'dosa', 100, 'starter');
+INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type ) VALUES ('paneer dosa','veg', 'south', 'dosa', 200, 'starter');
+INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type ) VALUES ('chicken dosa','nonveg', 'south', 'dosa', 200, 'starter');
+INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type ) VALUES ('idli','veg', 'south', 'idli', 200, 'starter');
+INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type ) VALUES ('fried idli','veg', 'south', 'idli', 200, 'starter');
+INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type ) VALUES ('idli samber','veg', 'south', 'idli', 500, 'starter');
+INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type ) VALUES ('veggie supreme','veg', 'pizza', 'suprem', 200, 'starter');
+INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type ) VALUES ('veggie delite','veg', 'pizza', 'suprem', 100, 'starter');
+INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type ) VALUES ('paneer masala','veg', 'north', 'curry', 200, 'main');
+INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type ) VALUES ('sahi paneer','veg', 'north', 'curry', 200, 'main');
+INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type ) VALUES ('chicken curry','nonveg', 'north', 'curry', 200, 'main');
+INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type ) VALUES ('chicken dosa','nonveg', 'north', 'curry', 200, 'main');
 
 INSERT INTO RESTAURENT ( name, city ) VALUES ( 'khana Khazana', 'Jaipur');
 
