@@ -7,18 +7,27 @@ const getArrOfObjVals = (ipArr,key)=>{
     return ipArr.map(item =>item[key])
 }
 
-function getMenuCategories(req,res) {
-  dbConnect.customQueryHandler('SELECT main_category FROM MENUITEM GROUP BY main_category').then((dbres)=>{
-    const mainCategories = getArrOfObjVals(dbres, 'main_category');
-    console.log('main cateeae', mainCategories);
-    SuccessResponse(res,mainCategories);
-    }).catch((err)=>{
+async function getMenuCategories(req,res) {
+    try {
+      const categoryQuery = 'SELECT main_category FROM MENUITEM GROUP BY main_category';
+      const categoriesDbRes = await dbConnect.customQueryHandler(categoryQuery);
+      const mainCategories = getArrOfObjVals(categoriesDbRes, 'main_category');
+      const categoryImgUrlQuery = `SELECT * FROM imagemapping WHERE imagekey IN ('${mainCategories.join("','")}')`;
+      const categoryImages = await dbConnect.customQueryHandler(categoryImgUrlQuery);
+      const response = mainCategories.map(category => {
+        return {
+          'category' : category,
+          'image_url_key' : categoryImages.find(item=>item.imagekey === category).imageurl
+        }
+      })
+  
+      SuccessResponse(res,response);      
+    } catch (error) {
       console.log(err);
-    });
+    }
 }
 
 function getMenuItemsByCategory(req,res) {
-    console.log("safsafas222",req.params);
     const { category } = req.params;
     const sqlQuery = `SELECT * FROM MENUITEM where main_category = '${category}'`;
     dbConnect.customQueryHandler(sqlQuery).then((dbres)=>{
