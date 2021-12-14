@@ -19,7 +19,7 @@ module.exports = {
         return res.status(400).json(payload);
     },
     SuccessResponse : (res, data) => {
-        console.log('555656', data);
+        //console.log('555656', data);
         var payload = {
             status : 200,
             message : 'Request Successful',

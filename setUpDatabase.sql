@@ -53,6 +53,14 @@ CREATE TABLE ORDERITEM (
     FOREIGN KEY (food_item) REFERENCES MENUITEM (id)
 );
 
+DROP TABLE IF EXISTS IMAGEMAPPING;
+CREATE TABLE IMAGEMAPPING (
+    id int not null AUTO_INCREMENT,
+    imagekey VARCHAR(255),
+    imageurl VARCHAR(255),
+    PRIMARY KEY (id)
+);
+
 INSERT INTO USER ( user_name, phone_no) VALUES ('prasad', '9876548798');
 INSERT INTO USER ( user_name, phone_no ) VALUES ('ramesh', '9876548000');
 
@@ -86,3 +94,7 @@ INSERT INTO ORDERITEM ( food_item, order_id, base_price, quantity, total_item_pr
 INSERT INTO ORDERITEM ( food_item, order_id, base_price, quantity, total_item_price ) VALUES (2,1, 150,4, 600);
 INSERT INTO ORDERITEM ( food_item, order_id, base_price, quantity, total_item_price ) VALUES (1,2, 100, 10, 1000);
 INSERT INTO ORDERITEM ( food_item, order_id, base_price, quantity, total_item_price ) VALUES (2,2,150, 6, 900);
+
+INSERT INTO IMAGEMAPPING ( imagekey, imageurl ) VALUES ('south','south_wwebkYnGEzQ.jpg?updatedAt=1639146161359');
+INSERT INTO IMAGEMAPPING ( imagekey, imageurl ) VALUES ('north','nort_ccGM1sG9y.jpg?updatedAt=1639146161272');
+INSERT INTO IMAGEMAPPING ( imagekey, imageurl ) VALUES ('pizza','pizza_XGOMQ5TXs.jpg?updatedAt=1639146161282');
