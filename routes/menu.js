@@ -6,5 +6,6 @@ const router = express.Router();
 router.get("/categories", MenuController.getMenuCategories);
 router.get("/menuitem/bycategory/:category", MenuController.getMenuItemsByCategory);
 router.get("/menuitems", MenuController.getAllMenuItems);
+router.get("/carausalitems", MenuController.getCarausalItems);
 
 module.exports = router;

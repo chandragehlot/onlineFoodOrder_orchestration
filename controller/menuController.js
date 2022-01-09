@@ -2,6 +2,7 @@ const dbConnect = require('../utils/db-connection');
 const {
     SuccessResponse,
   } = require("../utils/apiResponse");
+const carausalMocks = require("../utils/carausal-mocks");
 
 const getArrOfObjVals = (ipArr,key)=>{
     return ipArr.map(item =>item[key])
@@ -45,8 +46,13 @@ function getAllMenuItems(req,res) {
     });
 }
 
+function getCarausalItems(req, res) {
+    SuccessResponse(res,carausalMocks);
+}
+
 module.exports = {
     getMenuCategories,
     getMenuItemsByCategory,
-    getAllMenuItems
+    getAllMenuItems,
+    getCarausalItems
 }
