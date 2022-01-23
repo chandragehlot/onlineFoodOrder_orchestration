@@ -11,9 +11,13 @@ async function getMenuCategories(req,res) {
     try {
       const categoryQuery = 'SELECT main_category FROM MENUITEM GROUP BY main_category';
       const categoriesDbRes = await dbConnect.customQueryHandler(categoryQuery);
+      console.log('categories db res', categoriesDbRes);
       const mainCategories = getArrOfObjVals(categoriesDbRes, 'main_category');
-      const categoryImgUrlQuery = `SELECT * FROM imagemapping WHERE imagekey IN ('${mainCategories.join("','")}')`;
+      console.log('mainCategories', mainCategories);
+      const categoryImgUrlQuery = `SELECT * FROM IMAGEMAPPING WHERE imagekey IN ('${mainCategories.join("','")}')`;
+      console.log('categoryImgUrlQuery', categoryImgUrlQuery);
       const categoryImages = await dbConnect.customQueryHandler(categoryImgUrlQuery);
+      console.log('categoryImages'. categoryImages);
       const response = mainCategories.map(category => {
         return {
           'category' : category,
@@ -23,7 +27,7 @@ async function getMenuCategories(req,res) {
   
       SuccessResponse(res,response);      
     } catch (error) {
-      console.log(err);
+      console.log(error);
     }
 }
 
