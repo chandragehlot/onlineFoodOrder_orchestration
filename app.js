@@ -6,6 +6,7 @@ require("dotenv").config();
 
 const DefaultRoute = require("./routes/default");
 const MenuRoute = require("./routes/menu");
+const CarouselRoute = require("./routes/carousel")
 var app = express();
 
 //middlewares
@@ -21,6 +22,7 @@ app.get("/api/v1/health-check", (req, res) => {
 
 app.use("/api/v1/menu/", MenuRoute);
 app.use("/api/v1", DefaultRoute);
+app.use("/api/v1/carousel", CarouselRoute);
 
 app.use((req, res, next) => {
   const error = new Error("Not found");
