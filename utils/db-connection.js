@@ -2,6 +2,7 @@
 'user strict';
 
 const mysql = require('mysql2');
+const config = require('../utils/config.js');
 
 class dbConnectSingleton {
     constructor(){
@@ -9,17 +10,18 @@ class dbConnectSingleton {
     }
 
     connect(){
+      console.log('chitthiye', config);
+        const { host, user, password, database} = config.sqlDB;
         this.instance = mysql.createConnection({
-            host     : 'foodorderdb.cmhqa3wxmetc.us-east-1.rds.amazonaws.com',
-            user     : 'foodOMasterUser',
-            password : 'Food#Order#123',
-            database : 'ZAYKA_RESTAURENT'
+            host,
+            user,
+            password,
+            database
           });
           
           this.instance.connect(function(err) {
-            console.log("here");
             if (err) throw err;
-            console.log("Database Connected!");
+            console.log("MySql Database Connected!");
           });
     }
 
@@ -38,9 +40,3 @@ class dbConnectSingleton {
 
 dbConnect = new dbConnectSingleton();
 module.exports  = dbConnect;
-
-
-// host     : '127.0.0.1',
-// user     : 'root',
-// password : 'Hello12345',
-// database : 'ZAYKA_RESTAURENT'

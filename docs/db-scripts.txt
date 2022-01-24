@@ -93,3 +93,15 @@ INSERT INTO ORDERITEM ( food_item, order_id, base_price, quantity, total_item_pr
 INSERT INTO ORDERITEM ( food_item, order_id, base_price, quantity, total_item_price ) VALUES (2,2,150, 6, 900);
 
 SELECT USER.user_name , FOODORDER.total, FOODORDER.status FROM FOODORDER INNER JOIN USER ON FOODORDER.user_id=USER.id;
+
+
+sql commands
+ALTERT TABLE USER DROP COLUMN user_name;
+ALTERT TABLE USER DROP COLUMN phone_no;
+
+ALTER TABLE USER ADD (userID VARCHAR(255), password VARCHAR(255), email VARCHAR(255));
+
+INSERT INTO USER ( userID, password, email) VALUES ('prasad', 'hello125', 'ab@c.com');
+SELECT * FROM USER;
+
+DELETE FROM USER WHERE id=5;

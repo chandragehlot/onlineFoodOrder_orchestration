@@ -8,3 +8,4 @@ router.get("/menuitem/bycategory/:category", MenuController.getMenuItemsByCatego
 router.get("/menuitems", MenuController.getAllMenuItems);
 
 module.exports = router;
+

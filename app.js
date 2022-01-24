@@ -6,6 +6,8 @@ require("dotenv").config();
 
 const DefaultRoute = require("./routes/default");
 const MenuRoute = require("./routes/menu");
+const AccountRoute = require("./routes/account");
+
 var app = express();
 
 //middlewares
@@ -20,6 +22,7 @@ app.get("/api/v1/health-check", (req, res) => {
 });
 
 app.use("/api/v1/menu/", MenuRoute);
+app.use("/api/v1/account/", AccountRoute)
 app.use("/api/v1", DefaultRoute);
 
 app.use((req, res, next) => {
