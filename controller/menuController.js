@@ -31,6 +31,8 @@ async function getMenuCategories(req,res) {
     }
 }
 
+///https://myfood.com/api/v1/menu//menuitem/bycategory/north
+
 function getMenuItemsByCategory(req,res) {
     const { category } = req.params;
     const sqlQuery = `SELECT * FROM MENUITEM where main_category = '${category}'`;

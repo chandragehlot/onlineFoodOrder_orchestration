@@ -10,7 +10,6 @@ class dbConnectSingleton {
     }
 
     connect(){
-      console.log('chitthiye', config);
         const { host, user, password, database} = config.sqlDB;
         this.instance = mysql.createConnection({
             host,

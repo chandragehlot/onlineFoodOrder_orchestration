@@ -17,13 +17,14 @@ app.use(cookieParser());
 app.use(cors());
 app.use(logger("dev"));
 
+
 app.get("/api/v1/health-check", (req, res) => {
   res.send("food delivery orchestration backend api working fine");
 });
 
 app.use("/api/v1/menu/", MenuRoute);
 app.use("/api/v1/account/", AccountRoute)
-app.use("/api/v1", DefaultRoute);
+app.use("/api/v1/", DefaultRoute);
 
 app.use((req, res, next) => {
   const error = new Error("Not found");

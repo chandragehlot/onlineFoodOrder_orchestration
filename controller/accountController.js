@@ -1,6 +1,6 @@
 const dbConnect = require("../utils/db-connection");
-const { SuccessResponse } = require("../utils/apiResponse");
-const { comparePwdWithHash, createPwdHash } = require("../utils/bcrypt-util");
+const { SuccessResponse, ValidationErrorResponse } = require("../utils/apiResponse");
+const { comparePwdWithHash, createPwdHash, signJWTToken, verifyJWTToken } = require("../utils/bcrypt-util");
 
 
 async function signUp(req, res) {
@@ -30,14 +30,22 @@ async function login(req, res) {
     const dbUserArr = await dbConnect.customQueryHandler(getUserQuery);
     const dbUser = dbUserArr[0];
 
+    
     const ifPwdMatch = await comparePwdWithHash(password, dbUser.password);
     if (ifPwdMatch) {
-      SuccessResponse(res, "login ok");
+      console.log("1  =>", dbUser);
+      delete dbUser.password;
+      console.log("2  =>", dbUser)
+      const authToken = signJWTToken(dbUser);
+      
+      verifyJWTToken(authToken);
+      SuccessResponse(res, { "token" : authToken, "loginStatus" : "loggedIn" });
     } else {
-      SuccessResponse(res, "login no ok");
+      throw Error("password incorrect");
     }
   } catch (error) {
     console.log(error);
+    throw Error(error);
   }
 }
 

@@ -9,3 +9,6 @@ router.get("/menuitems", MenuController.getAllMenuItems);
 
 module.exports = router;
 
+///https://myfood.com/api/v1/menu/categories
+
+
