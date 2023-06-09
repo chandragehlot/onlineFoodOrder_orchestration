@@ -24,27 +24,6 @@ function createRecordSuccFailStore() {
       })();
 }
 
-async function HandlerRecords(records = [], recordStatus, ExternalAsyncEntityHandler, startingIndex = 0) {
-    console.log('1005', records);
-    for (let index = startingIndex; index < records.length; index++) {
-      const record = records[index];
-      try {
-        console.log('1006', record);
-        const result = await ExternalAsyncEntityHandler(record);
-        console.log('1007', result);
-        recordStatus.updateSuccessResults(result);
-      } catch (e) {
-        console.log(e);
-        recordStatus.updateFailResults(record);
-        // if(index <= records.length){
-        //     console.log('calling recursion');
-        //     HandlerRecords(records, recordStatus,ExternalAsyncEntityHandler, index); // recurrsion
-        // }
-      }
-    }
-  }
-
-
 async function HitTOExternalAPI(item) {
     console.log('70000');
     try {
@@ -58,6 +37,25 @@ async function HitTOExternalAPI(item) {
         return error.message;
       }
 }
+
+async function HandlerRecords(records = [], recordStatus, ExternalAsyncEntityHandler, startingIndex = 0) {
+    console.log('1005', records);
+    for (let index = startingIndex; index < records.length; index++) {
+      const record = records[index];
+      try {
+        const result = await ExternalAsyncEntityHandler(record);
+        recordStatus.updateSuccessResults(result);
+      } catch (e) {
+        console.log(e);
+        recordStatus.updateFailResults(record);
+        // if(index <= records.length){
+        //     console.log('calling recursion');
+        //     HandlerRecords(records, recordStatus,ExternalAsyncEntityHandler, index); // recurrsion
+        // }
+      }
+    }
+}
+
 
 module.exports = {
 createRecordSuccFailStore,
