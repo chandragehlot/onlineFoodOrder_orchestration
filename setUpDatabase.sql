@@ -98,3 +98,21 @@ INSERT INTO ORDERITEM ( food_item, order_id, base_price, quantity, total_item_pr
 INSERT INTO IMAGEMAPPING ( imagekey, imageurl ) VALUES ('south','south_wwebkYnGEzQ.jpg?updatedAt=1639146161359');
 INSERT INTO IMAGEMAPPING ( imagekey, imageurl ) VALUES ('north','nort_ccGM1sG9y.jpg?updatedAt=1639146161272');
 INSERT INTO IMAGEMAPPING ( imagekey, imageurl ) VALUES ('pizza','pizza_XGOMQ5TXs.jpg?updatedAt=1639146161282');
+
+
+
+CREATE TABLE USER_ADDRESS (
+    id int not null AUTO_INCREMENT,
+    fullName varchar(255),
+    phoneNumber varchar(255),
+    address1 varchar(255),
+    address2 varchar(255),
+    city varchar(255),
+    pincode varchar(255),
+    addresstype varchar(255),
+    PRIMARY KEY (id)
+);
+
+
+INSERT INTO USER ( id,fullName,phoneNumber,address1,address2,city,pincode,addresstype) VALUES (1, 'name 1', '9876548000', 'address1', 'address2', 'delhi', '54554454', 'work');
+
