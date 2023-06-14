@@ -3,7 +3,7 @@ const baseConfig = {
         "sqlDB" : {
             host     : '127.0.0.1',
             user     : 'root',
-            password : 'Hello12345',
+            password : 'Hello@123',
             database : 'ZAYKA_RESTAURENT'
         }
     },
