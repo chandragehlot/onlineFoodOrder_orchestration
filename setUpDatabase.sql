@@ -114,5 +114,5 @@ CREATE TABLE USER_ADDRESS (
 );
 
 
-INSERT INTO USER ( id,fullName,phoneNumber,address1,address2,city,pincode,addresstype) VALUES (1, 'name 1', '9876548000', 'address1', 'address2', 'delhi', '54554454', 'work');
+INSERT INTO USER_ADDRESS ( id,fullName,phoneNumber,address1,address2,city,pincode,addresstype) VALUES (1, 'name 1', '9876548000', 'address1', 'address2', 'delhi', '54554454', 'work');
 
