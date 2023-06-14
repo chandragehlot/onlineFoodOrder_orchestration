@@ -4,7 +4,7 @@ const cors = require("cors");
 const logger = require("morgan");
 require("dotenv").config();
 
-const DefaultRoute = require("./routes/default");
+// const DefaultRoute = require("./routes/default");
 const MenuRoute = require("./routes/menu");
 const AddressRoute = require('./routes/address');
 
@@ -24,7 +24,7 @@ app.get("/api/v1/health-check", (req, res) => {
 
 app.use("/api/v1/menu/", MenuRoute);
 app.use("/api/v1/address/", AddressRoute);
-app.use("/api/v1/", DefaultRoute);
+// app.use("/api/v1/", DefaultRoute);
 
 app.use((req, res, next) => {
   const error = new Error("Not found");
