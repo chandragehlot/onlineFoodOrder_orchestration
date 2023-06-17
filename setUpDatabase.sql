@@ -99,7 +99,7 @@ INSERT INTO IMAGEMAPPING ( imagekey, imageurl ) VALUES ('south','south_wwebkYnGE
 INSERT INTO IMAGEMAPPING ( imagekey, imageurl ) VALUES ('north','nort_ccGM1sG9y.jpg?updatedAt=1639146161272');
 INSERT INTO IMAGEMAPPING ( imagekey, imageurl ) VALUES ('pizza','pizza_XGOMQ5TXs.jpg?updatedAt=1639146161282');
 
-
+DROP TABLE IF EXISTS USER_ADDRESS;
 
 CREATE TABLE USER_ADDRESS (
     id int not null AUTO_INCREMENT,
@@ -112,7 +112,6 @@ CREATE TABLE USER_ADDRESS (
     addresstype varchar(255),
     PRIMARY KEY (id)
 );
-
 
 INSERT INTO USER_ADDRESS ( id,fullName,phoneNumber,address1,address2,city,pincode,addresstype) VALUES (1, 'name 1', '9876548000', 'address1', 'address2', 'delhi', '54554454', 'work');
 
