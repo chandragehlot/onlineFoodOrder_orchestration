@@ -3,15 +3,15 @@ const baseConfig = {
         "sqlDB" : {
             host     : '127.0.0.1',
             user     : 'root',
-            password : 'Hello@123',
+            password : 'Hello12345',
             database : 'ZAYKA_RESTAURENT'
         }
     },
     "uat" : {
         "sqlDB" : {
-            host     : 'foodorderdb.cmhqa3wxmetc.us-east-1.rds.amazonaws.com',
-            user     : 'foodOMasterUser',
-            password : 'Food#Order#123',
+            host     : '127.0.0.1',
+            user     : 'root',
+            password : 'Hello@123',
             database : 'ZAYKA_RESTAURENT'
         }
     },
