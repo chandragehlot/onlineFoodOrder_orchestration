@@ -3,6 +3,8 @@ const {
     SuccessResponse,
   } = require("../utils/apiResponse");
 
+const dbStore = require('../models')
+
 const getArrOfObjVals = (ipArr,key)=>{
     return ipArr.map(item =>item[key])
 }
@@ -51,8 +53,75 @@ function getAllMenuItems(req,res) {
     });
 }
 
+async function getRestaurentInfo(req, res) {
+  //console.log('dbStore', dbStore);
+  // const restra = await dbStore['RESTAURENT'].findAll({});
+  // const user_Address = await dbStore['USER_ADDRESS'].findAll({
+  //   include: ['USER']
+  // });
+
+  // const users = await dbStore['USER'].findAll({
+  //   include: ['USER_ADDRESSes']
+  // }); 
+
+  const cart = await dbStore['CART'].findAll({
+    include: [{
+      model: dbStore['USER']
+    }, {
+      model: dbStore['CART_ITEMs'],
+      include: [
+        {
+          model: dbStore['MENU_ITEM'],
+          include: [{
+            model: dbStore['IMAGE_MAPPING']
+          }
+          ]
+        }
+      ]
+    }]
+  });
+
+  
+
+  // const userWithCart = await dbStore['USER'].findAll({
+  //   include: ['CART']
+  // })
+
+  // const cart_items = await dbStore['CART_ITEMs'].findAll({
+  //   include: ['MENU_ITEM']
+  // });
+
+
+
+  // const menuItemsWithImages  =  await dbStore['MENU_ITEM'].findAll({
+  //   include: ['IMAGE_MAPPING']
+  // }); 
+
+  // const images = await dbStore['IMAGE_MAPPING'].findAll({
+  //   include: ['MENU_ITEM']
+  // }); 
+  //console.log("restra", restra);
+  //console.log('user address', "user_Address");
+
+  // SuccessResponse(res, {
+  //   "restra" : "restra",
+  //   "userAddress": "user_Address",
+  //   "users": "users",
+  //   "images": "images",
+  //   "menu items": "menuItemsWithImages",
+  //   "cart": "cart",
+  //   "cart_items": "cart_items"
+  // });
+
+  SuccessResponse(res, {
+    "userWithCart": "userWithCart",
+    "cart": cart
+  })
+}
+
 module.exports = {
     getMenuCategories,
     getMenuItemsByCategory,
-    getAllMenuItems
+    getAllMenuItems,
+    getRestaurentInfo
 }

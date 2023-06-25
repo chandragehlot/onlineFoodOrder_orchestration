@@ -71,15 +71,12 @@ INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_ty
 INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type, rating ) VALUES ('idli','veg', 'south', 'idli', 200, 'starter', 1);
 INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type, rating ) VALUES ('fried idli','veg', 'south', 'idli', 200, 'starter', 2);
 INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type, rating ) VALUES ('idli samber','veg', 'south', 'idli', 500, 'starter', 4);
-
 INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type, rating ) VALUES ('paneer masala','veg', 'north', 'curry', 200, 'main', 5);
 INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type, rating ) VALUES ('sahi paneer','veg', 'north', 'curry', 200, 'main', 1);
 INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type, rating ) VALUES ('chicken curry','nonveg', 'north', 'curry', 200, 'main', 4);
 INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type, rating ) VALUES ('chicken dosa','nonveg', 'north', 'curry', 200, 'main', 5);
-
 INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type, rating ) VALUES ('veggie supreme','veg', 'pizza', 'suprem', 200, 'starter', 2);
 INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type, rating ) VALUES ('veggie delite','veg', 'pizza', 'suprem', 100, 'starter', 4);
-
 INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type, rating ) VALUES ('Margherita','veg', 'pizza', 'classic', 100, 'starter', 5);
 INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type, rating ) VALUES ('fresh vaggie','veg', 'pizza', 'classic', 250, 'starter', 2);
 INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type, rating ) VALUES ('Extravegenza','veg', 'pizza', 'premium', 410, 'starter', 1);
