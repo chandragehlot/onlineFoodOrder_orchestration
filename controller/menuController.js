@@ -64,23 +64,43 @@ async function getRestaurentInfo(req, res) {
   //   include: ['USER_ADDRESSes']
   // }); 
 
-  const cart = await dbStore['CART'].findAll({
+  // const cart = await dbStore['CART'].findAll({
+  //   include: [{
+  //     model: dbStore['USER']
+  //   }, {
+  //     model: dbStore['CART_ITEMs'],
+  //     include: [
+  //       {
+  //         model: dbStore['MENU_ITEM'],
+  //         include: [{
+  //           model: dbStore['IMAGE_MAPPING']
+  //         }
+  //         ]
+  //       }
+  //     ]
+  //   }]
+  // });
+
+  const order = await dbStore['ORDER'].findAll({
     include: [{
-      model: dbStore['USER']
-    }, {
-      model: dbStore['CART_ITEMs'],
+      model: dbStore['ORDER_ITEMs'],
       include: [
         {
-          model: dbStore['MENU_ITEM'],
-          include: [{
-            model: dbStore['IMAGE_MAPPING']
-          }
+          model: dbStore['MENU_ITEMs'],
+          include: [
+            {
+              model: dbStore['IMAGE_MAPPING']
+            }
           ]
         }
       ]
+    },
+    {
+      model: dbStore['USER']
     }]
   });
 
+  const orderItems = await dbStore['ORDER_ITEMs'].findAll({});
   
 
   // const userWithCart = await dbStore['USER'].findAll({
@@ -115,7 +135,9 @@ async function getRestaurentInfo(req, res) {
 
   SuccessResponse(res, {
     "userWithCart": "userWithCart",
-    "cart": cart
+    "cart": "cart",
+    "order" : order,
+    "orderItems": orderItems
   })
 }
 

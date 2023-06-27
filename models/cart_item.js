@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
   CART_ITEM.associate = function(models) {
     // associations can be defined here
     CART_ITEM.belongsTo(models.CART);
-    CART_ITEM.belongsTo(models.MENU_ITEM, {
+    CART_ITEM.belongsTo(models.MENU_ITEMs, {
       foreignKey: 'itemId'
     });
 

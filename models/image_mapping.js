@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false
   });
   IMAGE_MAPPING.associate = function(models) {
-    IMAGE_MAPPING.hasOne(models.MENU_ITEM, {
+    IMAGE_MAPPING.hasOne(models.MENU_ITEMs, {
       foreignKey: 'itemImage'
     });
   };

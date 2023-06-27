@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const MENU_ITEM = sequelize.define('MENU_ITEM', {
+  const MENU_ITEM = sequelize.define('MENU_ITEMs', {
     name: DataTypes.STRING,
     foodtype: {
       type: DataTypes.ENUM,
@@ -26,6 +26,9 @@ module.exports = (sequelize, DataTypes) => {
     });
     MENU_ITEM.hasOne(models.CART_ITEMs,{
       foreignKey: 'itemId'
+    });
+    MENU_ITEM.hasOne(models.ORDER_ITEMs,{
+      foreignKey: 'menuItemId'
     })
   };
   return MENU_ITEM;
