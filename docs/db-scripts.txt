@@ -1,0 +1,107 @@
+User - id, user_name, phone_no, address, email, password
+
+Restaurant - id, address, open_timing, close_timing , name, city
+
+MenuItem - id,  cuisine , type[veg, non_veg], price, course_type[starter, main, desert], description, ingredients
+
+Order - id(PK),  user_id(FK), gross_bill, Final_bill, payment_type[online, case], status[ordered, cancelled, delivered], order_time, delivery_address, delivered_time
+
+cart - id(PK), order_id (FK), base_price, quantity, total_item_price
+
+
+CREATE TABLE USER (
+    id int not null AUTO_INCREMENT,
+    user_name varchar(255),
+    phone_no varchar(255),
+    PRIMARY KEY (id)
+);
+
+
+CREATE TABLE MENUITEM (
+    id int not null AUTO_INCREMENT,
+    name VARCHAR(256),
+    type ENUM ('veg', 'nonveg'), 
+    main_category varchar(256),
+    sub_category varchar(256),
+    price int,
+    course_type ENUM ('starter','main', 'deserts'),
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE RESTAURENT (
+    id int not null AUTO_INCREMENT,
+    name VARCHAR(255),
+    city VARCHAR(255),
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE FOODORDER (
+    id int not null AUTO_INCREMENT,
+    user_id int,
+    total int,
+    status ENUM ('ordered', 'cancelled', 'delivered'),
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES USER (id)
+);
+
+CREATE TABLE ORDERITEM (
+    id int not null AUTO_INCREMENT,
+    food_item int,
+    order_id int, 
+    base_price int,
+    quantity int,
+    total_item_price int,
+    PRIMARY KEY (id),
+    FOREIGN KEY (order_id) REFERENCES FOODORDER (id),
+    FOREIGN KEY (food_item) REFERENCES MENUITEM (id)
+);
+
+
+INSERT INTO USER ( user_name, phone_no) VALUES ('prasad', '9876548798');
+INSERT INTO USER ( user_name, phone_no ) VALUES ('ramesh', '9876548000');
+
+INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type ) VALUES ('masala dosa','veg', 'south', 'dosa', 200, 'starter');
+INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type ) VALUES ('rava dosa','veg', 'south', 'dosa', 100, 'starter');
+INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type ) VALUES ('paneer dosa','veg', 'south', 'dosa', 200, 'starter');
+INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type ) VALUES ('chicken dosa','nonveg', 'south', 'dosa', 200, 'starter');
+INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type ) VALUES ('idli','veg', 'south', 'idli', 200, 'starter');
+INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type ) VALUES ('fried idli','veg', 'south', 'idli', 200, 'starter');
+INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type ) VALUES ('idli samber','veg', 'south', 'idli', 500, 'starter');
+
+INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type ) VALUES ('paneer masala','veg', 'north', 'curry', 200, 'main');
+INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type ) VALUES ('sahi paneer','veg', 'north', 'curry', 200, 'main');
+INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type ) VALUES ('chicken curry','nonveg', 'north', 'curry', 200, 'main');
+INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type ) VALUES ('chicken dosa','nonveg', 'north', 'curry', 200, 'main');
+
+INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type ) VALUES ('veggie supreme','veg', 'pizza', 'suprem', 200, 'starter');
+INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type ) VALUES ('veggie delite','veg', 'pizza', 'suprem', 100, 'starter');
+
+INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type ) VALUES ('Margherita','veg', 'pizza', 'classic', 100, 'starter');
+INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type ) VALUES ('fresh vaggie','veg', 'pizza', 'classic', 250, 'starter');
+INSERT INTO MENUITEM ( name, type, main_category, sub_category, price, course_type ) VALUES ('Extravegenza','veg', 'pizza', 'premium', 410, 'starter');
+
+
+INSERT INTO RESTAURENT ( name, city ) VALUES ( 'khana Khazana', 'Jaipur');
+
+
+INSERT INTO FOODORDER ( user_id, total, status ) VALUES (1, 800, 'ordered');
+INSERT INTO FOODORDER ( user_id, total, status ) VALUES (2, 1900, 'delivered');
+
+INSERT INTO ORDERITEM ( food_item, order_id, base_price, quantity, total_item_price ) VALUES (1,1, 100, 2, 200);
+INSERT INTO ORDERITEM ( food_item, order_id, base_price, quantity, total_item_price ) VALUES (2,1, 150,4, 600);
+INSERT INTO ORDERITEM ( food_item, order_id, base_price, quantity, total_item_price ) VALUES (1,2, 100, 10, 1000);
+INSERT INTO ORDERITEM ( food_item, order_id, base_price, quantity, total_item_price ) VALUES (2,2,150, 6, 900);
+
+SELECT USER.user_name , FOODORDER.total, FOODORDER.status FROM FOODORDER INNER JOIN USER ON FOODORDER.user_id=USER.id;
+
+
+sql commands
+ALTERT TABLE USER DROP COLUMN user_name;
+ALTERT TABLE USER DROP COLUMN phone_no;
+
+ALTER TABLE USER ADD (userID VARCHAR(255), password VARCHAR(255), email VARCHAR(255));
+
+INSERT INTO USER ( userID, password, email) VALUES ('prasad', 'hello125', 'ab@c.com');
+SELECT * FROM USER;
+
+DELETE FROM USER WHERE id=5;
