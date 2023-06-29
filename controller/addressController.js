@@ -1,16 +1,13 @@
-const dbConnect = require("../utils/db-connection");
 const { SuccessResponse } = require("../utils/apiResponse");
 
-//   fullName: "",
-//   phoneNumber: "",
-//   address1: "",
-//   address2: "",
-//   city: "",
-//   pincode: "",
-//   addresstype: "",
 
-async function addUserAddress(req, res) {
-  const userAddress = req.body;
+const {
+  getUserAddressListFromDB,
+  getUesrFromDB,
+  addAddressToDB,
+} = require("./SequlizeHelper");
+
+async function addUserAddress_v2(req, res) {
   const {
     fullName,
     phoneNumber,
@@ -19,34 +16,61 @@ async function addUserAddress(req, res) {
     city,
     pincode,
     addresstype,
-  } = userAddress;
-  try {
-    const addressQuery = `INSERT INTO USER_ADDRESS (fullName,phoneNumber,address1,address2,city,pincode,addresstype) VALUES (
-            "${fullName}","${phoneNumber}","${address1}","${address2}","${city}","${pincode}","${addresstype}"
-            )`;
+    username,
+  } = req.body;
 
-    await dbConnect.customQueryHandler(addressQuery);
+  const user = await getUesrFromDB(username);
+  const newAddress = await addAddressToDB(
+    fullName,
+    phoneNumber,
+    address1,
+    address2,
+    city,
+    pincode,
+    addresstype,
+    user
+  );
+
+  SuccessResponse(res, {
+    new_address: newAddress,
+  });
+}
+
+async function getUserAddressList_v2(req, res) {
+  try {
+    const userName = req.query["userName"];
+    const addressListResArr = await getUserAddressListFromDB(userName);
     SuccessResponse(res, {
-      ...userAddress,
+      addressList: addressListResArr["USER_ADDRESSes"],
     });
   } catch (error) {
     console.log(error);
   }
 }
 
-async function getUserAddressList(req, res) {
-  console.log("req coming here");
+function deleteAddressForUser_v2() {
   try {
-    const query = "SELECT * FROM USER_ADDRESS";
-    const db_res = await dbConnect.customQueryHandler(query);
     SuccessResponse(res, {
-      addressList: db_res,
+      a: "a",
     });
   } catch (error) {
     console.log(error);
   }
 }
+
+function updateAddressForUser_v2() {
+  try {
+    SuccessResponse(res, {
+      a: "a",
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 module.exports = {
-  addUserAddress,
-  getUserAddressList
+  getUserAddressList_v2,
+  addUserAddress_v2,
+  deleteAddressForUser_v2,
+  updateAddressForUser_v2,
 };

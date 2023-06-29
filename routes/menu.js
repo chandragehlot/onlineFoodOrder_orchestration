@@ -1,15 +1,13 @@
-const express = require('express');
-const MenuController = require('../controller/menuController');
+// const express = require('express');
+// const MenuController = require('../controller/menuController');
 
-const router = express.Router();
+// const router = express.Router();
 
-router.get("/categories", MenuController.getMenuCategories);
-router.get("/menuitem/bycategory/:category", MenuController.getMenuItemsByCategory);
-router.get("/menuitems", MenuController.getAllMenuItems);
-router.get('/restroinfo',MenuController.getRestaurentInfo)
+// router.get("/categories", MenuController.getMenuCategories);
+// router.get("/menuitem/bycategory/:category", MenuController.getMenuItemsByCategory);
+// router.get("/menuitems", MenuController.getAllMenuItems);
 
-module.exports = router;
 
-///https://myfood.com/api/v1/menu/categories
+// module.exports = router;
 
 
