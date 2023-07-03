@@ -2,11 +2,13 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const logger = require("morgan");
+
 require("dotenv").config();
 
-// const DefaultRoute = require("./routes/default");
-const MenuRoute = require("./routes/menu");
-const AddressRoute = require('./routes/address');
+// create root level Event Emitter
+
+
+
 const AddressRouteV2 = require('./routes/address_v2');
 const MenuRouteV2 = require("./routes/menu_v2");
 const SqlTestRoute = require("./routes/sqlTest");
@@ -20,17 +22,6 @@ app.use(cookieParser());
 app.use(cors());
 app.use(logger("dev"));
 
-
-app.get("/api/v1/health-check", (req, res) => {
-  res.send("food delivery orchestration backend api working fine");
-});
-
-// app.use("/api/v1/menu/", MenuRoute);
-// app.use("/api/v1/address/", AddressRoute);
-// app.use("/api/v1/", DefaultRoute);
-
-// v2 version of APIs starts
-
 app.get('/api/v2', (req,res) => {
   res.send("food delivery orchestration backend api version v2 working fine");
 })
@@ -40,9 +31,7 @@ app.get('/api/v2/health-check', (req,res) => {
 
 app.use("/api/v2/address/", AddressRouteV2);
 app.use("/api/v2/menu/", MenuRouteV2);
-app.use("/api/v2/test/",SqlTestRoute)
-
-// v2 version of APIs ends
+app.use("/api/v2/test/",SqlTestRoute);
 
 app.use((req, res, next) => {
   const error = new Error("Not found");
