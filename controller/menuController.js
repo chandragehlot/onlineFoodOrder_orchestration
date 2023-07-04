@@ -11,10 +11,12 @@ const {
   addMenuItemImageToCDN,
   updateImageInCDN,
   updateMenuItemInDB,
-  updateMenuImageInDb
+  updateMenuImageInDb,
+  deleteMenuItemInDb,
+  getMenuImageFromDB,
+  deleteImageInCDN
 } = require('./SequlizeHelper');
 
-const { getUrlPath } = require("../utils/reusable-methods");
 const { rootEventEmitter } = require("../utils/imageCleanUp");
 
 
@@ -92,9 +94,6 @@ function addMenuItem(req,res) {
 
 async function updateMenuItem(req, res) {
   const { CDN_fileId, imageId, menuItemId } = req.body;
-  console.log('1001', CDN_fileId);
-  console.log('1002', imageId);
-  console.log('1004', menuItemId);
   try {
     if(req.file){
       const cdnResponse = await updateImageInCDN(CDN_fileId, req.file);
@@ -117,7 +116,20 @@ async function updateMenuItem(req, res) {
 
 
 async function deleteMenuItem(req, res) {
-
+  const { imageId } = req.query;
+  console.log('1999', imageId)
+  const result1 = await getMenuImageFromDB(imageId);
+  console.log('2000', result1);
+  const { CDN_fileId } = result1;
+  const deleteResult = await deleteImageInCDN(CDN_fileId);
+  console.log('2001', deleteResult);
+  if(deleteResult){
+    const result4 = await deleteMenuItemInDb(imageId);
+    console.log('result4', result4);
+    SuccessResponse(res, {
+      "response" : "menu item deleted successfully"
+    });
+  }
 }
 
 

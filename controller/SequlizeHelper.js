@@ -192,7 +192,7 @@ function deleteImageInCDN(fileId) {
         reject(false);
       } else {
         console.log("result of image delete in cdm", result);
-        resolve(result);
+        resolve(true);
       }
     });
   });
@@ -206,6 +206,24 @@ async function updateImageInCDN(fileId, file) {
   } catch (error) {
     console.log(error);
   }
+}
+
+async function getMenuImageFromDB(imageId) {
+  return await dbStore["IMAGE_MAPPING"].findOne({
+    attributes: [
+      ["imagekey", "category"],
+      ["imageurl", "image_url_key"],
+      "CDN_fileId"
+    ],
+    where: { id: imageId },
+    raw :true
+  });
+}
+
+async function deleteMenuItemInDb(imageId) {
+  return await dbStore["IMAGE_MAPPING"].destroy({
+    where: { id: imageId }
+  });
 }
 
 module.exports = {
@@ -223,5 +241,8 @@ module.exports = {
   addMenuItemImageToCDN,
   updateImageInCDN,
   updateMenuItemInDB,
-  updateMenuImageInDb
+  updateMenuImageInDb,
+  deleteMenuItemInDb,
+  getMenuImageFromDB,
+  deleteImageInCDN
 };

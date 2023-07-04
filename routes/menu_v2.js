@@ -11,6 +11,6 @@ router.get("/menuitems", MenuController.getAllMenuItems);
 router.post("/addmenuitem", upload.single("itemImage"), MenuController.addMenuItem);
 router.get('/deleteMenuItem',MenuController.deleteMenuItem);
 router.post('/updatemenuitem',upload.single("itemImage") , MenuController.updateMenuItem )
-//router.get('/test', MenuController.test_v2);
 
 module.exports = router;
+
