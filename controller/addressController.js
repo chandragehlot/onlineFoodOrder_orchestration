@@ -1,10 +1,10 @@
 const { SuccessResponse } = require("../utils/apiResponse");
-
-
 const {
   getUserAddressListFromDB,
   getUesrFromDB,
   addAddressToDB,
+  deleteAddressInDb,
+  updateAddressInDb
 } = require("./SequlizeHelper");
 
 async function addUserAddress_v2(req, res) {
@@ -48,20 +48,25 @@ async function getUserAddressList_v2(req, res) {
   }
 }
 
-function deleteAddressForUser_v2() {
+function updateAddressForUser_v2(req,res) {
+  console.log('coming here or not');
   try {
+    const { addressId, userId, ...addressBody} = req.body;
+    const dbRes = updateAddressInDb(addressId, userId, addressBody);
     SuccessResponse(res, {
-      a: "a",
+      "update_response": dbRes,
     });
   } catch (error) {
     console.log(error);
   }
 }
 
-function updateAddressForUser_v2() {
+async function deleteAddressForUser_v2(req, res) {
   try {
+    const { userId, addressId } = req.query;
+    const dbres = await deleteAddressInDb(userId, addressId);
     SuccessResponse(res, {
-      a: "a",
+      "delete_response" : dbres,
     });
   } catch (error) {
     console.log(error);
