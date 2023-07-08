@@ -104,53 +104,127 @@ async function test_v2(req, res) {
   //   "cart_items": "cart_items"
   // });
 
-  const userId = 1;
-  const addressId = 7;
-  // const address_delete = await dbStore["USER_ADDRESS"].destroy({
-  //   where: { id: addressId, userId: userId }
+  // const userId = 1;
+  // const addressId = 7;
+  // // const address_delete = await dbStore["USER_ADDRESS"].destroy({
+  // //   where: { id: addressId, userId: userId }
+  // // });
+
+  // const addressbody = {
+  //   phoneNumber: undefined,
+  //   address1: undefined,
+  //   address2: undefined,
+  //   city: undefined,
+  //   pincode: "8888888",
+  //   addresstype: "home",
+  // };
+
+  // let aa = {};
+  // for (const key in addressbody) {
+  //     const element = addressbody[key];
+  //     console.log('element', element)
+  //     aa = element ? { ...aa, [key] : element } : aa;
+  // }
+
+  // console.log(aa);
+
+  // const addressUpdate_result = await dbStore["USER_ADDRESS"].update(
+  //   {
+  //     ...aa
+  //   },
+  //   {
+  //     where: { id: addressId, userId: userId },
+  //   }
+  // );
+
+  // SuccessResponse(res, {
+  //   userWithCart: "userWithCart",
+  //   cart: "cart",
+  //   order: "order",
+  //   orderItems: "orderItems",
+  //   userAddress: "userAddress",
+  //   user1: "user1",
+  //   new_Uesr: "newUser",
+  //   categories: "categories",
+  //   categoriesWithImage: "categoriesWithImage",
+  //   address_delete: "address_delete",
+  //   addressUpdate_result: addressUpdate_result,
   // });
 
-  const addressbody = {
-    phoneNumber: undefined,
-    address1: undefined,
-    address2: undefined,
-    city: undefined,
-    pincode: "8888888",
-    addresstype: "home",
-  };
 
-  let aa = {};
-  for (const key in addressbody) {
-      const element = addressbody[key];
-      console.log('element', element)
-      aa = element ? { ...aa, [key] : element } : aa;
+
+    // const c = await dbStore['CART'].create({
+    //   userId: 2
+    // });
+
+    // const a = await dbStore['CART'].findAll({
+    //   // include: ['CART_ITEMs']
+    // });
+    // const b = await dbStore['CART_ITEMs'].findAll({
+    //   include: ['MENU_ITEM']
+    // });
+
+    // const a = await dbStore['CART_ITEMs'].create({
+    //   cartId: 2,
+    //   itemId: 6,
+    //   noOfItems: 5
+    // })
+
+    // const b = await dbStore['CART_ITEMs'].findAll({
+    //   // include: ['CART_ITEMs']
+    // });
+
+    // console.log("a", a);
+    // console.log("b", b);
+    // console.log("c", "c");
+
+
+
+    async function db_getCartByUserId(userid) {
+      return await dbStore['CART'].findOne({
+          where: {
+              userId: userid
+          }
+      })
   }
+  async function db_getCartItemsByCartId(cartid) {
+      return await dbStore['CART'].findAll({
+          include: ['CART_ITEMs'],
+          where: {
+              id: cartid
+          }
+      })
+  }
+  // async function db_createCartByUserId(userid) {
+  //     return await dbStore['CART'].create({
+  //         userId: userid
+  //     })
+  // }
+  
+  
+  // async function db_createCartItemByCartId(cartItemObj) {
+  //     return await dbStore['CART_ITEMs'].create({
+  //         cartId : cartItemObj.cartId,
+  //         itemId: cartItemObj.itemId,
+  //         noOfItems: cartItemObj.noOfItems
+  //     })
+  // }
 
-  console.log(aa);
-
-  const addressUpdate_result = await dbStore["USER_ADDRESS"].update(
-    {
-      ...aa
-    },
-    {
-      where: { id: addressId, userId: userId },
-    }
-  );
-
-  SuccessResponse(res, {
-    userWithCart: "userWithCart",
-    cart: "cart",
-    order: "order",
-    orderItems: "orderItems",
-    userAddress: "userAddress",
-    user1: "user1",
-    new_Uesr: "newUser",
-    categories: "categories",
-    categoriesWithImage: "categoriesWithImage",
-    address_delete: "address_delete",
-    addressUpdate_result: addressUpdate_result,
-  });
+  // const a = await db_createCartByUserId(2);
+  // const b = await db_createCartItemByCartId({
+  //   cartId: 10,
+  //   itemId: 5,
+  //   noOfItems: 4
+  // });
+    SuccessResponse(res, {
+      "a": await db_getCartByUserId(2),
+      "b": await db_getCartItemsByCartId(10)
+    })
 }
+
+// "a": a,
+// "b": b,
+// "d" : d
 
 module.exports = {
   test_v2,

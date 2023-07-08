@@ -1,7 +1,5 @@
 const fs = require("fs");
 const dbStore = require("../models");
-const { imageKitInstance } = require("../utils/imageKitCDNInstance");
-
 /*
 *
 * 

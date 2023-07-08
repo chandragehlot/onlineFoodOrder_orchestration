@@ -77,6 +77,7 @@ async function getAllMenuItems(req, res) {
 
 function addMenuItem(req, res) {
   try {
+    console.log('req file', req.file);
     CDN_addImage(req.file)
       .then(async (cdnResponse) => {
         rootEventEmitter.emit("cleanupUploadFiles", req.file.filename);

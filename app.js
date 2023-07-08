@@ -9,6 +9,8 @@ require("dotenv").config();
 
 const AddressRoute = require('./routes/address');
 const ProductRoute = require("./routes/product");
+const CartRoute = require("./routes/cart");
+const OrderRoute = require("./routes/order");
 const SqlTestRoute = require("./routes/sqlTest");
 
 var app = express();
@@ -29,6 +31,8 @@ app.get('/api/v1/health-check', (req,res) => {
 
 app.use("/api/v1/address/", AddressRoute);
 app.use("/api/v1/product/", ProductRoute);
+app.use("/api/v1/cart", CartRoute);
+app.use("/api/v1/order", OrderRoute);
 app.use("/api/v1/test/",SqlTestRoute);
 
 app.use((req, res, next) => {
