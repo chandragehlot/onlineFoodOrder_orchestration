@@ -17,7 +17,7 @@ const { rootEventEmitter } = require("../utils/imageCleanUp");
 const {
   CDN_updateImage,
   CDN_deleteImage,
-  CDN_addImage,
+  CDN_addImage
 } = require("../utils/imageKitCDNInstance");
 
 async function getMenuCategories(req, res) {

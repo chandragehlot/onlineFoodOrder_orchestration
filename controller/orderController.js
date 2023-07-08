@@ -1,40 +1,104 @@
+const {
+  db_addOrder,
+  db_addOrderItems,
+  db_updateOrderStatus,
+  db_getAllOrders,
+  db_getOrdersByUser,
+} = require("../sequlize-layer/order-helper");
 const { SuccessResponse } = require("../utils/apiResponse");
+const { orderNumberGenerator } = require("../utils/reusable-methods");
 
-function createOrder(req,res) {
-    SuccessResponse(res, {
-        "a": "a"
-    });
+async function createOrder(req, res) {
+  const { userId, orderAddressId, orderItems, totalAmount } = req.body;
+
+  const orderNumber = orderNumberGenerator();
+  const orderStatus = "ordered";
+  const orderPlaceTime = new Date();
+  const orderDbRes = await db_addOrder({
+    orderNumber,
+    userId,
+    totalAmount,
+    orderStatus,
+    orderPlaceTime,
+    orderAddress: orderAddressId,
+  });
+  const { id } = orderDbRes;
+  const orderItemArr = orderItems.map((item) => {
+    return {
+      ...item,
+      orderId: id,
+      totalPrice: parseInt(item.unitPrice) * parseInt(item.quantity),
+    };
+  });
+
+  console.log("OrderItemArray", orderItemArr);
+  const dbRes = await db_addOrderItems(orderItemArr);
+
+  // Remove Item from Cart If orderItems present In the cart
+  SuccessResponse(res, dbRes);
 }
 
-function UpdateOrder(req, res) {
-    SuccessResponse(res, {
-        "a": "a"
-    })
+async function UpdateOrder(req, res) {
+  const {
+    orderStatus,
+    orderId,
+    userId,
+    orderPrepareEmployee,
+    orderDeliverEmployee,
+  } = req.body;
+  let dbRes;
+  if (orderStatus === "inprogress") {
+    // TODO
+    // check if order Prepared Employee is a 'CHEF'
+    dbRes = await db_updateOrderStatus(
+      {
+        orderStatus,
+        orderPrepareEmployee, // current value three
+      },
+      orderId,
+      userId
+    );
+  } else if (orderStatus === "dispatched") {
+    // TODO
+    // check if order delivery  Employee is a 'Delivry Person'
+    dbRes = await db_updateOrderStatus(
+      {
+        orderStatus,
+        orderDispatchTime: new Date(),
+        orderDeliverEmployee,
+      },
+      orderId,
+      userId
+    );
+  } else if (orderStatus === "delivered") {
+    dbRes = await db_updateOrderStatus(
+      {
+        orderStatus: orderStatus,
+        orderDeliveryTime: new Date(),
+      },
+      orderId,
+      userId
+    );
+  }
+  SuccessResponse(res, dbRes);
 }
 
-function softDeleteOrder(req, res) {
-    SuccessResponse(res, {
-        "a": "a"
-    })
+async function getAllOrders(req, res) {
+  try {
+    const dbRes = await db_getAllOrders();
+    SuccessResponse(res, dbRes);
+  } catch (error) {}
 }
 
-function getAllOrders(req, res) {
-    SuccessResponse(res, {
-        "a": "a"
-    })
+async function getOrdersByUser(req, res) {
+  const { userId } = req.query;
+  const dbRes = await db_getOrdersByUser(userId);
+  SuccessResponse(res, dbRes);
 }
-
-function getOrderByUser(req, res) {
-    SuccessResponse(req, {
-        "a": "a"
-    })
-}
-
 
 module.exports = {
-    createOrder,
-    UpdateOrder,
-    softDeleteOrder,
-    getAllOrders,
-    getOrderByUser
-}
+  createOrder,
+  UpdateOrder,
+  getAllOrders,
+  getOrdersByUser,
+};

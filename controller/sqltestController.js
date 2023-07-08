@@ -180,21 +180,21 @@ async function test_v2(req, res) {
 
 
 
-    async function db_getCartByUserId(userid) {
-      return await dbStore['CART'].findOne({
-          where: {
-              userId: userid
-          }
-      })
-  }
-  async function db_getCartItemsByCartId(cartid) {
-      return await dbStore['CART'].findAll({
-          include: ['CART_ITEMs'],
-          where: {
-              id: cartid
-          }
-      })
-  }
+  //   async function db_getCartByUserId(userid) {
+  //     return await dbStore['CART'].findOne({
+  //         where: {
+  //             userId: userid
+  //         }
+  //     })
+  // }
+  // async function db_getCartItemsByCartId(cartid) {
+  //     return await dbStore['CART'].findAll({
+  //         include: ['CART_ITEMs'],
+  //         where: {
+  //             id: cartid
+  //         }
+  //     })
+  // }
   // async function db_createCartByUserId(userid) {
   //     return await dbStore['CART'].create({
   //         userId: userid
@@ -216,10 +216,66 @@ async function test_v2(req, res) {
   //   itemId: 5,
   //   noOfItems: 4
   // });
-    SuccessResponse(res, {
-      "a": await db_getCartByUserId(2),
-      "b": await db_getCartItemsByCartId(10)
-    })
+    // SuccessResponse(res, {
+    //   "a": await db_getCartByUserId(2),
+    //   "b": await db_getCartItemsByCartId(10)
+    // })
+
+    // Order Section
+    // const params = {
+    //   orderNumber: 'FBT0000001', 
+    //   userId: 2, 
+    //   totalAmount : 400, 
+    //   orderStatus: 'ordered', 
+    //   orderPlaceTime: new Date(),
+    //   orderAddress: 2
+    // }
+    // const {orderNumber, userId, totalAmount, orderStatus, orderPlaceTime, orderAddress } = params;
+    // const dbResOrder =  await dbStore['ORDER'].create({
+    //     orderNumber, 
+    //     userId, 
+    //     totalAmount, 
+    //     orderStatus, 
+    //     orderPlaceTime, 
+    //     orderAddress
+    // })
+
+    // SuccessResponse(res, dbResOrder)
+
+    // const orderItems = [
+    //   {
+    //     "menuItemId": 2,
+    //     "unitPrice": 300,
+    //     "quantity": 3,
+    //     "orderId": 2,
+    //     "totalPrice": 900
+    // },
+    // {
+    //     "menuItemId": 3,
+    //     "quantity": 4,
+    //     "unitPrice": 300,
+    //     "orderId": 2,
+    //     "totalPrice": 1200
+    // }
+    // ];
+
+    // const dbResOrderItem = await dbStore['ORDER_ITEMs'].bulkCreate(orderItems);
+
+    // SuccessResponse(res, dbResOrderItem)
+    async function updateOrder(params) {
+     return await dbStore['ORDER'].update({
+        [params]: new Date()
+      },{
+        where : {
+          id: 1
+        }
+      })
+    }
+
+    updateOrder('orderDeliveryTime').then((dbRes) => {
+      console.log('res', dbRes);
+      SuccessResponse(res, dbRes);
+    }) 
 }
 
 // "a": a,
