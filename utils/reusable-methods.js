@@ -78,10 +78,28 @@ function removeUndefineItems(inputObj) {
   return outputObj;
 }
 
+const orderNumberGenerator = (function generateOrderNumber() {
+  let incNumber = 1000000, orderNumber_slug = 'FBT', orderNumber;
+
+  orderNumber = `${orderNumber_slug}${incNumber}`;
+
+  function getNextOrderNumber() {
+    increaseOrderNumber();
+    return orderNumber;
+  }
+
+  function increaseOrderNumber() {
+    incNumber = incNumber+1;
+    orderNumber = `${orderNumber_slug}${incNumber}`;
+  }
+  return getNextOrderNumber
+}());
+
 module.exports = {
   createRecordSuccFailStore,
   HandlerRecords,
   HitTOExternalAPI,
   getUrlPath,
-  removeUndefineItems
+  removeUndefineItems,
+  orderNumberGenerator
 };

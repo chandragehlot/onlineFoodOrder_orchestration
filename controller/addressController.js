@@ -1,13 +1,13 @@
 const { SuccessResponse } = require("../utils/apiResponse");
 const {
-  getUserAddressListFromDB,
-  getUesrFromDB,
-  addAddressToDB,
-  deleteAddressInDb,
-  updateAddressInDb
-} = require("./SequlizeHelper");
+  db_getAddressList,
+  db_getUesr,
+  db_addAddress,
+  db_deleteAddress,
+  db_updateAddress
+} = require("../sequlize-layer/address-helper");
 
-async function addUserAddress_v2(req, res) {
+async function addAddress(req, res) {
   const {
     fullName,
     phoneNumber,
@@ -19,8 +19,8 @@ async function addUserAddress_v2(req, res) {
     username,
   } = req.body;
 
-  const user = await getUesrFromDB(username);
-  const newAddress = await addAddressToDB(
+  const user = await db_getUesr(username);
+  const newAddress = await db_addAddress(
     fullName,
     phoneNumber,
     address1,
@@ -36,10 +36,10 @@ async function addUserAddress_v2(req, res) {
   });
 }
 
-async function getUserAddressList_v2(req, res) {
+async function getAddressList(req, res) {
   try {
     const userName = req.query["userName"];
-    const addressListResArr = await getUserAddressListFromDB(userName);
+    const addressListResArr = await db_getAddressList(userName);
     SuccessResponse(res, {
       addressList: addressListResArr["USER_ADDRESSes"],
     });
@@ -48,11 +48,11 @@ async function getUserAddressList_v2(req, res) {
   }
 }
 
-function updateAddressForUser_v2(req,res) {
+function updateAddress(req,res) {
   console.log('coming here or not');
   try {
     const { addressId, userId, ...addressBody} = req.body;
-    const dbRes = updateAddressInDb(addressId, userId, addressBody);
+    const dbRes = db_updateAddress(addressId, userId, addressBody);
     SuccessResponse(res, {
       "update_response": dbRes,
     });
@@ -61,10 +61,10 @@ function updateAddressForUser_v2(req,res) {
   }
 }
 
-async function deleteAddressForUser_v2(req, res) {
+async function deleteAddress(req, res) {
   try {
     const { userId, addressId } = req.query;
-    const dbres = await deleteAddressInDb(userId, addressId);
+    const dbres = await db_deleteAddress(userId, addressId);
     SuccessResponse(res, {
       "delete_response" : dbres,
     });
@@ -74,8 +74,8 @@ async function deleteAddressForUser_v2(req, res) {
 }
 
 module.exports = {
-  getUserAddressList_v2,
-  addUserAddress_v2,
-  deleteAddressForUser_v2,
-  updateAddressForUser_v2,
+  getAddressList,
+  addAddress,
+  deleteAddress,
+  updateAddress
 };
